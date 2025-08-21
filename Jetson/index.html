@@ -1,0 +1,452 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Security System Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --success-color: #27ae60;
+            --danger-color: #e74c3c;
+            --warning-color: #f39c12;
+            --light-bg: #ecf0f1;
+            --dark-bg: #34495e;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--light-bg);
+            color: var(--primary-color);
+        }
+        
+        .dashboard-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--dark-bg));
+            color: white;
+            padding: 20px 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .stat-card {
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .stat-card-header {
+            padding: 15px;
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .stat-card-body {
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        
+        .camera-feed {
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .camera-feed img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .camera-label {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        
+        .barrier-status {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        
+        .barrier-open {
+            background-color: var(--success-color);
+            color: white;
+        }
+        
+        .barrier-closed {
+            background-color: var(--danger-color);
+            color: white;
+        }
+        
+        .log-entry {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            transition: background-color 0.3s ease;
+        }
+        
+        .log-entry:hover {
+            background-color: #f8f9fa;
+        }
+        
+        .log-entry.authorized {
+            border-left: 4px solid var(--success-color);
+        }
+        
+        .log-entry.unauthorized {
+            border-left: 4px solid var(--danger-color);
+        }
+        
+        .attendance-entry {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+        }
+        
+        .attendance-photo {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 15px;
+            object-fit: cover;
+        }
+        
+        .system-status {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+        
+        .status-item {
+            text-align: center;
+            margin: 10px;
+        }
+        
+        .status-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        
+        .status-label {
+            color: #666;
+        }
+        
+        .online {
+            color: var(--success-color);
+        }
+        
+        .offline {
+            color: var(--danger-color);
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-header">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <h1 class="mb-0"><i class="bi bi-shield-lock-fill me-2"></i>AI Security System</h1>
+                </div>
+                <div class="col-md-6 text-end">
+                    <div id="current-time" class="h4 mb-0"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-4">
+        <!-- Stats Row -->
+        <div class="row">
+            <div class="col-md-3">
+                <div class="stat-card">
+                    <div class="stat-card-header">
+                        <h5 class="mb-0">Known Faces</h5>
+                    </div>
+                    <div class="stat-card-body">
+                        <div class="stat-value" id="known-faces-count">0</div>
+                        <i class="bi bi-people-fill fs-1 text-primary"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stat-card">
+                    <div class="stat-card-header">
+                        <h5 class="mb-0">Today's Entries</h5>
+                    </div>
+                    <div class="stat-card-body">
+                        <div class="stat-value" id="today-count">0</div>
+                        <i class="bi bi-calendar-check-fill fs-1 text-success"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stat-card">
+                    <div class="stat-card-header">
+                        <h5 class="mb-0">Authorized</h5>
+                    </div>
+                    <div class="stat-card-body">
+                        <div class="stat-value" id="authorized-count">0</div>
+                        <i class="bi bi-check-circle-fill fs-1 text-success"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stat-card">
+                    <div class="stat-card-header">
+                        <h5 class="mb-0">Unauthorized</h5>
+                    </div>
+                    <div class="stat-card-body">
+                        <div class="stat-value" id="unauthorized-count">0</div>
+                        <i class="bi bi-x-circle-fill fs-1 text-danger"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Camera Feeds Row -->
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <div class="camera-feed">
+                    <div class="camera-label">Face Recognition Camera</div>
+                    <img id="face-feed" src="/face_feed" alt="Face Camera Feed">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="camera-feed">
+                    <div class="camera-label">License Plate Camera</div>
+                    <img id="plate-feed" src="/plate_feed" alt="Plate Camera Feed">
+                </div>
+            </div>
+        </div>
+
+        <!-- System Status Row -->
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">System Status</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="system-status">
+                            <div class="status-item">
+                                <div class="status-value" id="face-camera-status">
+                                    <i class="bi bi-circle-fill offline"></i> Offline
+                                </div>
+                                <div class="status-label">Face Camera</div>
+                            </div>
+                            <div class="status-item">
+                                <div class="status-value" id="plate-camera-status">
+                                    <i class="bi bi-circle-fill offline"></i> Offline
+                                </div>
+                                <div class="status-label">Plate Camera</div>
+                            </div>
+                            <div class="status-item">
+                                <div class="status-value" id="cpu-usage">0%</div>
+                                <div class="status-label">CPU Usage</div>
+                            </div>
+                            <div class="status-item">
+                                <div class="status-value" id="memory-usage">0%</div>
+                                <div class="status-label">Memory Usage</div>
+                            </div>
+                            <div class="status-item">
+                                <div class="status-value" id="uptime">0s</div>
+                                <div class="status-label">Uptime</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Barrier Status Row -->
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="barrier-status barrier-closed" id="barrier-status">
+                    <i class="bi bi-shield-lock-fill fs-1 me-3"></i>
+                    <h3 class="mb-0">Barrier: CLOSED</h3>
+                </div>
+            </div>
+        </div>
+
+        <!-- Logs and Attendance Tabs -->
+        <div class="row mt-4">
+            <div class="col-12">
+                <ul class="nav nav-tabs" id="logsTabs" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="logs-tab" data-bs-toggle="tab" data-bs-target="#logs" type="button" role="tab" aria-controls="logs" aria-selected="true">Activity Logs</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="attendance-tab" data-bs-toggle="tab" data-bs-target="#attendance" type="button" role="tab" aria-controls="attendance" aria-selected="false">Attendance</button>
+                    </li>
+                </ul>
+                <div class="tab-content" id="logsTabsContent">
+                    <div class="tab-pane fade show active" id="logs" role="tabpanel" aria-labelledby="logs-tab">
+                        <div class="card mt-3">
+                            <div class="card-body">
+                                <div id="logs-container" style="max-height: 400px; overflow-y: auto;">
+                                    <!-- Logs will be populated here -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="attendance" role="tabpanel" aria-labelledby="attendance-tab">
+                        <div class="card mt-3">
+                            <div class="card-body">
+                                <div id="attendance-container" style="max-height: 400px; overflow-y: auto;">
+                                    <!-- Attendance will be populated here -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Update current time
+        function updateTime() {
+            const now = new Date();
+            document.getElementById('current-time').textContent = now.toLocaleString();
+        }
+        updateTime();
+        setInterval(updateTime, 1000);
+        
+        // Format uptime
+        function formatUptime(seconds) {
+            const days = Math.floor(seconds / (3600 * 24));
+            const hours = Math.floor((seconds % (3600 * 24)) / 3600);
+            const minutes = Math.floor((seconds % 3600) / 60);
+            const secs = Math.floor(seconds % 60);
+            
+            if (days > 0) {
+                return `${days}d ${hours}h ${minutes}m`;
+            } else if (hours > 0) {
+                return `${hours}h ${minutes}m ${secs}s`;
+            } else if (minutes > 0) {
+                return `${minutes}m ${secs}s`;
+            } else {
+                return `${secs}s`;
+            }
+        }
+        
+        // Update dashboard data
+        function updateDashboard() {
+            fetch('/dashboard_data')
+                .then(response => response.json())
+                .then(data => {
+                    // Update stats
+                    document.getElementById('known-faces-count').textContent = data.known_faces_count;
+                    document.getElementById('today-count').textContent = data.today_count;
+                    document.getElementById('authorized-count').textContent = data.authorized_count;
+                    document.getElementById('unauthorized-count').textContent = data.unauthorized_count;
+                    
+                    // Update system status
+                    const faceStatus = document.getElementById('face-camera-status');
+                    faceStatus.innerHTML = data.system_status.face_camera ? 
+                        '<i class="bi bi-circle-fill online"></i> Online' : 
+                        '<i class="bi bi-circle-fill offline"></i> Offline';
+                    
+                    const plateStatus = document.getElementById('plate-camera-status');
+                    plateStatus.innerHTML = data.system_status.plate_camera ? 
+                        '<i class="bi bi-circle-fill online"></i> Online' : 
+                        '<i class="bi bi-circle-fill offline"></i> Offline';
+                    
+                    document.getElementById('cpu-usage').textContent = data.system_status.cpu_usage + '%';
+                    document.getElementById('memory-usage').textContent = data.system_status.memory_usage + '%';
+                    document.getElementById('uptime').textContent = formatUptime(data.system_status.uptime);
+                    
+                    // Update barrier status
+                    const barrierStatus = document.getElementById('barrier-status');
+                    if (data.authorized_count > data.unauthorized_count) {
+                        barrierStatus.className = 'barrier-status barrier-open';
+                        barrierStatus.innerHTML = '<i class="bi bi-shield-check-fill fs-1 me-3"></i><h3 class="mb-0">Barrier: OPEN</h3>';
+                    } else {
+                        barrierStatus.className = 'barrier-status barrier-closed';
+                        barrierStatus.innerHTML = '<i class="bi bi-shield-lock-fill fs-1 me-3"></i><h3 class="mb-0">Barrier: CLOSED</h3>';
+                    }
+                    
+                    // Update logs
+                    const logsContainer = document.getElementById('logs-container');
+                    logsContainer.innerHTML = '';
+                    data.logs.slice(-20).reverse().forEach(log => {
+                        const logEntry = document.createElement('div');
+                        logEntry.className = `log-entry ${log.authorized ? 'authorized' : 'unauthorized'}`;
+                        
+                        const time = new Date(log.timestamp).toLocaleTimeString();
+                        const details = log.type === 'face' ? 
+                            `Face: ${log.data.name} (${(log.data.confidence * 100).toFixed(1)}%)` : 
+                            `Plate: ${log.data.plate} (${(log.data.confidence * 100).toFixed(1)}%)`;
+                        
+                        logEntry.innerHTML = `
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <strong>${log.type.toUpperCase()}</strong>: ${details}
+                                </div>
+                                <div class="text-muted">${time}</div>
+                            </div>
+                        `;
+                        logsContainer.appendChild(logEntry);
+                    });
+                    
+                    // Update attendance
+                    const attendanceContainer = document.getElementById('attendance-container');
+                    attendanceContainer.innerHTML = '';
+                    data.attendance.slice(-10).reverse().forEach(entry => {
+                        const attendanceEntry = document.createElement('div');
+                        attendanceEntry.className = 'attendance-entry';
+                        
+                        const time = new Date(entry.timestamp).toLocaleTimeString();
+                        const name = entry.person_name || 'Unknown';
+                        const plate = entry.plate || 'N/A';
+                        
+                        attendanceEntry.innerHTML = `
+                            <img src="https://picsum.photos/seed/${name}/50/50.jpg" alt="${name}" class="attendance-photo">
+                            <div>
+                                <strong>${name}</strong>
+                                <div class="text-muted">Plate: ${plate} | ${time}</div>
+                            </div>
+                        `;
+                        attendanceContainer.appendChild(attendanceEntry);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching dashboard data:', error);
+                });
+        }
+        
+        // Initial update
+        updateDashboard();
+        
+        // Update every 2 seconds
+        setInterval(updateDashboard, 2000);
+    </script>
+</body>
+</html>
