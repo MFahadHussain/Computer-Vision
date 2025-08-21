@@ -1,0 +1,10 @@
+2025-08-20 23:46:27,174 - __main__ - INFO - Database setup completed
+2025-08-20 23:48:26,002 - __main__ - INFO - Mac system initialized successfully
+2025-08-20 23:48:26,005 - __main__ - INFO - Mac security system started
+2025-08-20 23:48:26,035 - __main__ - INFO - Starting web dashboard at http://0.0.0.0:5000
+2025-08-20 23:48:26,200 - __main__ - INFO - AI Security System (Mac Test) is running. Press Ctrl+C to stop.
+2025-08-20 23:48:26,200 - __main__ - INFO - Dashboard available at: http://localhost:5000
+2025-08-20 23:49:34,891 - __main__ - INFO - Shutdown signal received
+2025-08-20 23:49:34,891 - __main__ - INFO - Stopping security system...
+2025-08-20 23:49:35,252 - __main__ - WARNING - System is not running
+2025-08-20 23:49:35,253 - __main__ - INFO - Stopping web dashboard...
