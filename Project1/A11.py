@@ -1088,9 +1088,6 @@ face_worker = FaceWorker(cam_face)
 plate_worker = PlateWorker(cam_plate)
 
 # ---------------- HTML ----------------
-# ... (keep all the existing code until the INDEX_HTML variable)
-
-# ---------------- HTML ----------------
 INDEX_HTML = """<!doctype html>
 <html lang=\"en\">
 <head>
@@ -1116,9 +1113,6 @@ INDEX_HTML = """<!doctype html>
       --border: #e2e8f0;
       --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
       --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-      --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      --gradient-success: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);
-      --gradient-danger: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
     }
     
     * {
@@ -1129,7 +1123,7 @@ INDEX_HTML = """<!doctype html>
     
     body {
       font-family: 'Inter', sans-serif;
-      background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+      background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
       color: var(--text-primary);
       line-height: 1.6;
       min-height: 100vh;
@@ -1142,9 +1136,9 @@ INDEX_HTML = """<!doctype html>
     }
     
     header {
-      background: var(--gradient-primary);
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
       color: white;
-      padding: 40px 0;
+      padding: 30px 0;
       border-radius: 16px;
       box-shadow: var(--shadow-lg);
       margin-bottom: 30px;
@@ -1165,7 +1159,7 @@ INDEX_HTML = """<!doctype html>
     }
     
     header h1 {
-      font-size: 2.8rem;
+      font-size: 2.5rem;
       font-weight: 800;
       margin-bottom: 10px;
       position: relative;
@@ -1173,7 +1167,7 @@ INDEX_HTML = """<!doctype html>
     }
     
     header p {
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       opacity: 0.9;
       position: relative;
       z-index: 1;
@@ -1188,11 +1182,10 @@ INDEX_HTML = """<!doctype html>
     
     .card {
       background: var(--card-bg);
-      border-radius: 16px;
+      border-radius: 12px;
       box-shadow: var(--shadow);
       overflow: hidden;
       transition: all 0.3s ease;
-      border: 1px solid var(--border);
     }
     
     .card:hover {
@@ -1201,9 +1194,9 @@ INDEX_HTML = """<!doctype html>
     }
     
     .card-header {
-      background: var(--gradient-primary);
+      background: linear-gradient(135deg, var(--secondary), var(--accent));
       color: white;
-      padding: 18px 20px;
+      padding: 15px 20px;
       font-weight: 600;
       display: flex;
       justify-content: space-between;
@@ -1211,7 +1204,7 @@ INDEX_HTML = """<!doctype html>
     }
     
     .card-header h3 {
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       font-weight: 600;
     }
     
@@ -1245,7 +1238,7 @@ INDEX_HTML = """<!doctype html>
       padding-bottom: 56.25%;
       height: 0;
       overflow: hidden;
-      border-radius: 12px;
+      border-radius: 8px;
       background: #000;
     }
     
@@ -1260,25 +1253,24 @@ INDEX_HTML = """<!doctype html>
     
     .barrier-control {
       background: var(--card-bg);
-      border-radius: 16px;
-      padding: 30px;
+      border-radius: 12px;
+      padding: 25px;
       margin-bottom: 30px;
       box-shadow: var(--shadow-lg);
       text-align: center;
-      border: 1px solid var(--border);
     }
     
     .barrier-status {
-      padding: 25px;
-      border-radius: 16px;
-      margin-bottom: 25px;
-      font-weight: 700;
-      font-size: 1.5rem;
+      padding: 20px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      font-weight: 600;
+      font-size: 1.3rem;
       transition: all 0.5s ease;
     }
     
     .barrier-open {
-      background: var(--gradient-success);
+      background: linear-gradient(135deg, var(--success), #34d399);
       color: white;
     }
     
@@ -1288,37 +1280,29 @@ INDEX_HTML = """<!doctype html>
     }
     
     .barrier-status i {
-      font-size: 2.5rem;
-      margin-bottom: 15px;
+      font-size: 2rem;
+      margin-bottom: 10px;
       display: block;
     }
     
     .auth-status {
       display: flex;
       justify-content: space-around;
-      margin-top: 20px;
+      margin-top: 15px;
     }
     
     .auth-item {
       text-align: center;
-      padding: 15px;
-      border-radius: 12px;
-      background: var(--light);
-      transition: all 0.3s ease;
-    }
-    
-    .auth-item:hover {
-      transform: translateY(-3px);
     }
     
     .auth-icon {
-      font-size: 2rem;
-      margin-bottom: 10px;
+      font-size: 1.5rem;
+      margin-bottom: 5px;
     }
     
     .auth-label {
-      font-size: 1rem;
-      font-weight: 600;
+      font-size: 0.9rem;
+      opacity: 0.9;
     }
     
     .auth-authorized {
@@ -1336,30 +1320,29 @@ INDEX_HTML = """<!doctype html>
     .manual-control {
       display: flex;
       justify-content: center;
-      gap: 20px;
-      margin-top: 25px;
+      gap: 15px;
+      margin-top: 20px;
     }
     
     .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
+      display: inline-block;
       background: var(--primary);
       color: white;
       border: none;
-      padding: 14px 28px;
-      border-radius: 10px;
+      padding: 12px 24px;
+      border-radius: 8px;
       cursor: pointer;
       font-size: 1rem;
-      font-weight: 600;
+      font-weight: 500;
       transition: all 0.3s ease;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
     
     .btn:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-lg);
     }
     
     .btn-success {
@@ -1381,51 +1364,36 @@ INDEX_HTML = """<!doctype html>
     .stats-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 20px;
+      gap: 15px;
       margin-bottom: 30px;
     }
     
     .stat-card {
       background: var(--card-bg);
-      border-radius: 16px;
-      padding: 25px 20px;
+      border-radius: 12px;
+      padding: 20px;
       box-shadow: var(--shadow);
       text-align: center;
-      transition: all 0.3s ease;
-      border: 1px solid var(--border);
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .stat-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 5px;
-      background: var(--gradient-primary);
+      transition: transform 0.3s ease;
     }
     
     .stat-card:hover {
-      transform: translateY(-5px);
-      box-shadow: var(--shadow-lg);
+      transform: translateY(-3px);
     }
     
     .stat-icon {
-      width: 70px;
-      height: 70px;
+      width: 60px;
+      height: 60px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       margin: 0 auto 15px;
-      font-size: 1.8rem;
-      background: rgba(37, 99, 235, 0.1);
+      font-size: 1.5rem;
     }
     
     .icon-primary {
-      background: rgba(37, 99, 235, 0.1);
+      background: rgba(30, 58, 138, 0.1);
       color: var(--primary);
     }
     
@@ -1445,28 +1413,24 @@ INDEX_HTML = """<!doctype html>
     }
     
     .stat-value {
-      font-size: 2.2rem;
-      font-weight: 800;
-      margin-bottom: 8px;
-      color: var(--text-primary);
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 5px;
     }
     
     .stat-label {
       color: var(--text-secondary);
-      font-size: 0.95rem;
-      font-weight: 500;
+      font-size: 0.9rem;
     }
     
     .detection-item {
       display: flex;
       align-items: center;
-      gap: 15px;
-      padding: 15px;
-      border-radius: 12px;
-      margin-bottom: 15px;
+      gap: 12px;
+      padding: 12px;
+      border-radius: 8px;
+      margin-bottom: 10px;
       transition: all 0.3s ease;
-      background: var(--light);
-      border-left: 4px solid transparent;
     }
     
     .detection-item:hover {
@@ -1474,24 +1438,23 @@ INDEX_HTML = """<!doctype html>
     }
     
     .detection-item.authorized {
-      border-left-color: var(--success);
-      background: rgba(16, 185, 129, 0.05);
+      background: rgba(16, 185, 129, 0.1);
+      border-left: 4px solid var(--success);
     }
     
     .detection-item.unauthorized {
-      border-left-color: var(--danger);
-      background: rgba(239, 68, 68, 0.05);
+      background: rgba(239, 68, 68, 0.1);
+      border-left: 4px solid var(--danger);
     }
     
     .detection-icon {
-      font-size: 1.5rem;
-      width: 45px;
-      height: 45px;
+      font-size: 1.3rem;
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      flex-shrink: 0;
     }
     
     .detection-icon.authorized {
@@ -1509,19 +1472,18 @@ INDEX_HTML = """<!doctype html>
     }
     
     .detection-name {
-      font-weight: 700;
-      margin-bottom: 4px;
-      color: var(--text-primary);
+      font-weight: 600;
+      margin-bottom: 2px;
     }
     
     .detection-time {
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       color: var(--text-secondary);
     }
     
     .table-container {
       overflow-x: auto;
-      border-radius: 12px;
+      border-radius: 8px;
       border: 1px solid var(--border);
     }
     
@@ -1531,7 +1493,7 @@ INDEX_HTML = """<!doctype html>
     }
     
     th, td {
-      padding: 15px;
+      padding: 12px 15px;
       text-align: left;
       border-bottom: 1px solid var(--border);
     }
@@ -1549,22 +1511,20 @@ INDEX_HTML = """<!doctype html>
     .face-gallery {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-      gap: 20px;
-      margin-top: 20px;
+      gap: 15px;
+      margin-top: 15px;
     }
     
     .face-item {
       position: relative;
-      border-radius: 12px;
+      border-radius: 8px;
       overflow: hidden;
       box-shadow: var(--shadow);
-      transition: all 0.3s ease;
-      border: 1px solid var(--border);
+      transition: transform 0.3s ease;
     }
     
     .face-item:hover {
       transform: scale(1.05);
-      box-shadow: var(--shadow-lg);
     }
     
     .face-item img {
@@ -1580,22 +1540,22 @@ INDEX_HTML = """<!doctype html>
       right: 0;
       background: rgba(0, 0, 0, 0.7);
       color: white;
-      padding: 8px;
-      font-size: 0.9em;
+      padding: 5px;
+      font-size: 0.8em;
       text-align: center;
     }
     
     .btn-sm {
-      padding: 8px 16px;
+      padding: 6px 12px;
       font-size: 0.875rem;
     }
     
     .input {
-      padding: 12px 15px;
+      padding: 10px;
       border: 1px solid var(--border);
-      border-radius: 8px;
-      font-size: 0.95rem;
-      transition: all 0.3s ease;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      transition: border-color 0.3s ease;
       flex: 1;
     }
     
@@ -1607,9 +1567,9 @@ INDEX_HTML = """<!doctype html>
     
     .log-entry {
       display: flex;
-      gap: 12px;
-      margin-bottom: 15px;
-      padding-bottom: 15px;
+      gap: 10px;
+      margin-bottom: 12px;
+      padding-bottom: 12px;
       border-bottom: 1px solid var(--border);
     }
     
@@ -1625,8 +1585,7 @@ INDEX_HTML = """<!doctype html>
     
     .log-event {
       font-weight: 600;
-      margin-bottom: 4px;
-      color: var(--text-primary);
+      margin-bottom: 2px;
     }
     
     .log-details {
@@ -1636,18 +1595,17 @@ INDEX_HTML = """<!doctype html>
     
     .tabs {
       display: flex;
-      margin-bottom: 25px;
+      margin-bottom: 20px;
       border-bottom: 2px solid var(--border);
     }
     
     .tab {
-      padding: 15px 25px;
+      padding: 12px 24px;
       cursor: pointer;
       border-bottom: 3px solid transparent;
       transition: all 0.3s ease;
-      font-weight: 600;
+      font-weight: 500;
       color: var(--text-secondary);
-      border-radius: 8px 8px 0 0;
     }
     
     .tab:hover {
@@ -1657,7 +1615,7 @@ INDEX_HTML = """<!doctype html>
     .tab.active {
       border-bottom-color: var(--primary);
       color: var(--primary);
-      background: rgba(37, 99, 235, 0.05);
+      font-weight: 600;
     }
     
     .tab-content {
@@ -1670,96 +1628,83 @@ INDEX_HTML = """<!doctype html>
     
     .flex {
       display: flex;
-      gap: 15px;
+      gap: 10px;
       align-items: center;
     }
     
     .settings-section {
-      margin-bottom: 35px;
+      margin-bottom: 30px;
     }
     
     .settings-section h3 {
-      margin-bottom: 20px;
+      margin-bottom: 15px;
       color: var(--primary);
-      font-size: 1.3rem;
-      font-weight: 700;
+      font-size: 1.2rem;
     }
     
     .form-group {
-      margin-bottom: 20px;
+      margin-bottom: 15px;
     }
     
     .form-group label {
       display: block;
-      margin-bottom: 8px;
-      font-weight: 600;
-      color: var(--text-primary);
+      margin-bottom: 5px;
+      font-weight: 500;
     }
     
     .authorized-person {
       text-align: center;
-      padding: 30px;
-      background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(16, 185, 129, 0.05) 100%);
-      border-radius: 16px;
-      margin-bottom: 30px;
-      border: 1px solid rgba(16, 185, 129, 0.2);
+      padding: 20px;
+      background: rgba(16, 185, 129, 0.1);
+      border-radius: 12px;
+      margin-bottom: 20px;
     }
     
     .authorized-person img {
-      width: 220px;
-      height: 220px;
+      max-width: 200px;
       border-radius: 50%;
-      object-fit: cover;
       box-shadow: var(--shadow-lg);
-      margin-bottom: 20px;
-      border: 4px solid white;
+      margin-bottom: 15px;
     }
     
     .authorized-person h3 {
       color: var(--success);
-      font-size: 1.8rem;
-      font-weight: 700;
-      margin-bottom: 8px;
-    }
-    
-    .authorized-person p {
-      font-size: 1.1rem;
-      color: var(--text-primary);
+      font-size: 1.5rem;
+      margin-bottom: 5px;
     }
     
     .unauthorized-banner {
-      background: var(--gradient-danger);
+      background: var(--danger);
       color: white;
-      padding: 20px;
+      padding: 15px;
       text-align: center;
-      border-radius: 12px;
-      margin-bottom: 30px;
-      font-weight: 700;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      font-weight: 600;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 15px;
+      gap: 10px;
     }
     
     .notification {
       position: fixed;
-      top: 25px;
-      right: 25px;
-      padding: 18px 25px;
-      border-radius: 10px;
+      top: 20px;
+      right: 20px;
+      padding: 15px 20px;
+      border-radius: 8px;
       color: white;
-      font-weight: 600;
+      font-weight: 500;
       z-index: 2000;
-      animation: slideIn 0.4s ease;
-      box-shadow: var(--shadow-lg);
+      animation: slideIn 0.3s ease;
     }
     
     .notification.success {
-      background: var(--gradient-success);
+      background: var(--success);
     }
     
     .notification.error {
-      background: var(--gradient-danger);
+      background: var(--danger);
     }
     
     @keyframes slideIn {
@@ -1773,61 +1718,6 @@ INDEX_HTML = """<!doctype html>
       }
     }
     
-    .recognition-card {
-      background: var(--card-bg);
-      border-radius: 16px;
-      overflow: hidden;
-      box-shadow: var(--shadow-lg);
-      margin-bottom: 25px;
-      border: 1px solid var(--border);
-      transition: all 0.3s ease;
-    }
-    
-    .recognition-card:hover {
-      transform: translateY(-5px);
-    }
-    
-    .recognition-image {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-    }
-    
-    .recognition-details {
-      padding: 20px;
-    }
-    
-    .recognition-name {
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: var(--text-primary);
-      margin-bottom: 8px;
-    }
-    
-    .recognition-time {
-      font-size: 0.9rem;
-      color: var(--text-secondary);
-      margin-bottom: 15px;
-    }
-    
-    .recognition-status {
-      display: inline-block;
-      padding: 6px 12px;
-      border-radius: 20px;
-      font-size: 0.85rem;
-      font-weight: 600;
-    }
-    
-    .recognition-status.authorized {
-      background: rgba(16, 185, 129, 0.1);
-      color: var(--success);
-    }
-    
-    .recognition-status.unauthorized {
-      background: rgba(239, 68, 68, 0.1);
-      color: var(--danger);
-    }
-    
     @media (max-width: 768px) {
       .dashboard-grid {
         grid-template-columns: 1fr;
@@ -1838,7 +1728,7 @@ INDEX_HTML = """<!doctype html>
       }
       
       header h1 {
-        font-size: 2.2rem;
+        font-size: 2rem;
       }
       
       .manual-control {
@@ -1855,13 +1745,8 @@ INDEX_HTML = """<!doctype html>
       }
       
       .tab {
-        padding: 10px 18px;
+        padding: 8px 16px;
         font-size: 0.9rem;
-      }
-      
-      .authorized-person img {
-        width: 180px;
-        height: 180px;
       }
     }
   </style>
@@ -1870,7 +1755,7 @@ INDEX_HTML = """<!doctype html>
   <div class=\"container\">
     <header>
       <h1><i class=\"fas fa-shield-alt\"></i> AI Security Dashboard</h1>
-      <p>Advanced Face & Pakistani Plate Recognition System</p>
+      <p>Lightweight Face & Pakistani Plate Recognition System</p>
     </header>
     
     <div class=\"barrier-control\">
@@ -1908,17 +1793,6 @@ INDEX_HTML = """<!doctype html>
       <img id=\"authorized-person-img\" src=\"\" alt=\"Authorized Person\">
       <h3 id=\"authorized-person-name\"></h3>
       <p>Access Granted</p>
-    </div>
-    
-    <div id=\"latest-recognition\" style=\"display:none;\">
-      <div class=\"recognition-card\">
-        <img id=\"recognition-image\" class=\"recognition-image\" src=\"\" alt=\"Recognition\">
-        <div class=\"recognition-details\">
-          <h3 id=\"recognition-name\" class=\"recognition-name\"></h3>
-          <div id=\"recognition-time\" class=\"recognition-time\"></div>
-          <span id=\"recognition-status\" class=\"recognition-status authorized\"></span>
-        </div>
-      </div>
     </div>
     
     <div class=\"stats-grid\">
@@ -1959,9 +1833,9 @@ INDEX_HTML = """<!doctype html>
             <div class=\"video-container\">
               <img id=\"live-face\" src=\"/video_feed_face\" alt=\"Face Feed\">
             </div>
-            <div style=\"margin-top: 20px;\">
+            <div style=\"margin-top: 15px;\">
               <h4>Recent Detections</h4>
-              <div id=\"face-dets\" style=\"max-height: 220px; overflow-y: auto;\"></div>
+              <div id=\"face-dets\" style=\"max-height: 200px; overflow-y: auto;\"></div>
             </div>
           </div>
         </div>
@@ -1974,9 +1848,9 @@ INDEX_HTML = """<!doctype html>
             <div class=\"video-container\">
               <img id=\"live-plate\" src=\"/video_feed_plate\" alt=\"Plate Feed\">
             </div>
-            <div style=\"margin-top: 20px;\">
+            <div style=\"margin-top: 15px;\">
               <h4>Recent Detections</h4>
-              <div id=\"plate-dets\" style=\"max-height: 220px; overflow-y: auto;\"></div>
+              <div id=\"plate-dets\" style=\"max-height: 200px; overflow-y: auto;\"></div>
             </div>
           </div>
         </div>
@@ -1986,7 +1860,7 @@ INDEX_HTML = """<!doctype html>
             <h3><i class=\"fas fa-list\"></i> All Detections</h3>
           </div>
           <div class=\"card-body\">
-            <div id=\"combined-detections\" style=\"max-height: 350px; overflow-y: auto;\"></div>
+            <div id=\"combined-detections\" style=\"max-height: 300px; overflow-y: auto;\"></div>
           </div>
         </div>
         
@@ -2017,7 +1891,7 @@ INDEX_HTML = """<!doctype html>
             <button class=\"btn btn-sm\" onclick=\"updateActivity()\"><i class=\"fas fa-sync-alt\"></i></button>
           </div>
           <div class=\"card-body\">
-            <div id=\"activity-feed\" style=\"max-height: 350px; overflow-y: auto;\"></div>
+            <div id=\"activity-feed\" style=\"max-height: 300px; overflow-y: auto;\"></div>
           </div>
         </div>
         
@@ -2027,7 +1901,7 @@ INDEX_HTML = """<!doctype html>
             <button class=\"btn btn-sm\" onclick=\"updateBarrierLogs()\"><i class=\"fas fa-sync-alt\"></i></button>
           </div>
           <div class=\"card-body\">
-            <div id=\"barrier-logs\" style=\"max-height: 350px; overflow-y: auto;\"></div>
+            <div id=\"barrier-logs\" style=\"max-height: 300px; overflow-y: auto;\"></div>
           </div>
         </div>
       </div>
@@ -2056,7 +1930,7 @@ INDEX_HTML = """<!doctype html>
           
           <div class=\"settings-section\">
             <h3><i class=\"fas fa-car\"></i> Add Authorized Plate</h3>
-            <div class=\"flex\" style=\"margin-bottom: 20px;\">
+            <div class=\"flex\" style=\"margin-bottom: 15px;\">
               <input id=\"plate-input\" class=\"input\" placeholder=\"Enter plate number\"> 
               <input id=\"plate-label\" class=\"input\" placeholder=\"Label (optional)\"> 
               <button class=\"btn\" onclick=\"addPlateUI()\"><i class=\"fas fa-plus\"></i> Add</button>
@@ -2079,7 +1953,7 @@ INDEX_HTML = """<!doctype html>
           
           <div class=\"settings-section\">
             <h3><i class=\"fas fa-users\"></i> Known Faces</h3>
-            <div class=\"flex\" style=\"margin-bottom: 20px;\">
+            <div class=\"flex\" style=\"margin-bottom: 15px;\">
               <button class=\"btn\" onclick=\"reloadIndex()\"><i class=\"fas fa-sync-alt\"></i> Rebuild Index</button>
               <button class=\"btn\" onclick=\"loadKnownFaces()\"><i class=\"fas fa-refresh\"></i> Refresh</button>
             </div>
@@ -2603,35 +2477,6 @@ INDEX_HTML = """<!doctype html>
       }
     }
     
-    function showLatestRecognition(data) {
-      const latestRecognitionEl = document.getElementById('latest-recognition');
-      const recognitionImageEl = document.getElementById('recognition-image');
-      const recognitionNameEl = document.getElementById('recognition-name');
-      const recognitionTimeEl = document.getElementById('recognition-time');
-      const recognitionStatusEl = document.getElementById('recognition-status');
-      
-      if (data && data.image_path && data.name) {
-        recognitionImageEl.src = data.image_path;
-        recognitionNameEl.textContent = data.name;
-        recognitionTimeEl.textContent = new Date(data.timestamp * 1000).toLocaleString();
-        
-        if (data.authorized) {
-          recognitionStatusEl.textContent = 'AUTHORIZED';
-          recognitionStatusEl.className = 'recognition-status authorized';
-        } else {
-          recognitionStatusEl.textContent = 'UNAUTHORIZED';
-          recognitionStatusEl.className = 'recognition-status unauthorized';
-        }
-        
-        latestRecognitionEl.style.display = 'block';
-        
-        // Auto-hide after 10 seconds
-        setTimeout(() => {
-          latestRecognitionEl.style.display = 'none';
-        }, 10000);
-      }
-    }
-    
     setInterval(refreshFeeds, 1000);
     setInterval(updateBarrierStatus, 1000);
     setInterval(updateFaceDetections, 3000);
@@ -2641,15 +2486,6 @@ INDEX_HTML = """<!doctype html>
     setInterval(updateActivity, 5000);
     setInterval(updateBarrierLogs, 5000);
     setInterval(updateStats, 10000);
-    
-    // Add event listener for real-time updates
-    const eventSource = new EventSource('/events');
-    eventSource.onmessage = function(event) {
-      const data = JSON.parse(event.data);
-      if (data.type === 'recognition') {
-        showLatestRecognition(data.data);
-      }
-    };
     
     document.addEventListener('DOMContentLoaded', function() {
       refreshFeeds();
@@ -2668,25 +2504,6 @@ INDEX_HTML = """<!doctype html>
 </body>
 </html>
 """
-
-# ... (keep all the existing routes)
-
-# Add this new route for server-sent events
-@app.route("/events")
-def events():
-    def generate():
-        while True:
-            # Get the latest face detection
-            face_detections = face_worker.get_public_detections()
-            if face_detections:
-                latest = face_detections[-1]
-                if latest.get("authorized") and latest.get("image_path"):
-                    yield f"data: {json.dumps({'type': 'recognition', 'data': latest})}\n\n"
-            time.sleep(0.1)
-    
-    return Response(generate(), mimetype="text/event-stream")
-
-# ... (keep all the existing code)
 
 # ---------------- Routes ----------------
 @app.route("/")
