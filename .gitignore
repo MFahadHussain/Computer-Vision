@@ -39,11 +39,11 @@ ENV/
 *.onnx
 *.engine
 
-# Video files (optional - uncomment if you don't want to track videos)
-# *.mp4
-# *.avi
-# *.mov
-# *.mkv
+# Video files (excluded by default - use Git LFS if needed)
+*.mp4
+*.avi
+*.mov
+*.mkv
 
 # ROI configurations (optional - uncomment if you want to track these)
 # *.json
