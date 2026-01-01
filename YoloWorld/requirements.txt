@@ -1,0 +1,19 @@
+# Core dependencies for YOLO-World V2 Video Detector
+# It's recommended to use a virtual environment to avoid conflicts with other packages
+# See INSTALLATION.md for setup instructions
+
+# YOLO-World model
+ultralytics>=8.0.0
+
+# Computer vision
+opencv-python>=4.5.0
+
+# Object tracking with ReID
+boxmot>=10.0.0
+
+# Deep learning framework
+torch>=1.9.0
+
+# Numerical computing
+numpy>=1.21.0
+
